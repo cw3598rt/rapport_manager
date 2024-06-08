@@ -1,7 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:rapport_manager/providers/event_provider.dart';
 import 'package:rapport_manager/screens/newEvent_screen.dart';
 import 'package:rapport_manager/widgets/event_card_widget.dart';
@@ -41,7 +40,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   void getFilterLabel(String filter) {
     ref.read(eventNotifierProvider.notifier).filterLabel(filter);
-    setState(() {});
   }
 
   @override
@@ -88,10 +86,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       .length ==
                   1)
                 EventCardWidget(
-                    customerInfo: ref
-                        .watch(eventNotifierProvider.notifier)
-                        .filteredEvents
-                        .first)
+                  customerInfo: ref
+                      .watch(eventNotifierProvider.notifier)
+                      .filteredEvents
+                      .first,
+                )
               else
                 Swiper(
                   itemCount: ref
@@ -100,9 +99,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       .length,
                   itemBuilder: (context, index) {
                     return EventCardWidget(
-                        customerInfo: ref
-                            .watch(eventNotifierProvider.notifier)
-                            .filteredEvents[index]);
+                      customerInfo: ref
+                          .watch(eventNotifierProvider.notifier)
+                          .filteredEvents[index],
+                    );
                   },
                   itemWidth: 350,
                   itemHeight: 650,

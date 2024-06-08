@@ -41,7 +41,7 @@ class EventNotifier extends StateNotifier<Map<String, dynamic>> {
       return;
     }
     newArr.add(event);
-    state["list"] = newArr;
+    state = {"list": newArr, "filter": "All"};
   }
 
   void deleteEvent(EventDetail event) {
@@ -49,11 +49,14 @@ class EventNotifier extends StateNotifier<Map<String, dynamic>> {
 
     newArr.remove(event);
 
-    state["list"] = newArr;
+    state = {"list": newArr, "filter": "All"};
   }
 
   void filterLabel(String filter) {
-    state["filter"] = filter;
+    state = {
+      "list": [...state["list"]],
+      "filter": filter
+    };
   }
 }
 

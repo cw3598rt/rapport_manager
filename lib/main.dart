@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rapport_manager/screens/home_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
+
+  Gemini.init(apiKey: dotenv.env['GEMINIAPI'].toString());
   runApp(
     ProviderScope(
       child: const MyApp(),
