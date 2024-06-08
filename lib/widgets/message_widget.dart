@@ -33,7 +33,7 @@ class _MessageWidgetState extends State<MessageWidget> {
     var date = formatter.format(widget.customerInfo.date);
 
     var prompt =
-        "first of all, you have amazing customer service skill. Could you write professional text message for the customer? customer's name is$name and text'messages main contents are $event and event has been happened at $date. please write it politely but friendly as well. and do not put any link or phone number or any unnecessary information just focus on give information only. Additionally, if given name is not english letters please translate the whole message as given name language! and also put some emoji too";
+        "first of all, you have amazing customer service skill. Could you write professional text message for the customer? customer's name is $name and text message's main content is about $event at $date. please write it politely but friendly as well. and do not put any link or phone number or any unnecessary information just focus on given information only. Additionally, if given name is not english letters please translate the whole message as given name language! and also put some emoji too";
 
     try {
       final response = await gemini.text(prompt);
@@ -87,7 +87,7 @@ class _MessageWidgetState extends State<MessageWidget> {
                   borderColor: const Color(0xFFCFD6FF),
                   textEditingController: myTextController,
                   validation: true,
-                  errorText: 'Please type a reason!',
+                  errorText: 'Please type message!',
                 );
               } else {
                 /// idle state

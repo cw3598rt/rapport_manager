@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rapport_manager/providers/event_provider.dart';
+import 'package:rapport_manager/screens/calendar_screen.dart';
 import 'package:rapport_manager/screens/newEvent_screen.dart';
 import 'package:rapport_manager/widgets/event_card_widget.dart';
 import 'package:rapport_manager/widgets/filter_widget.dart';
@@ -44,74 +45,86 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var list = ref.watch(eventNotifierProvider);
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 120,
-        title: Container(
-          child: TextButton(
-            onPressed: onTapToNewTask,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.add,
+      appBar: _tabIndex == 0
+          ? AppBar(
+              toolbarHeight: 120,
+              title: Container(
+                child: TextButton(
+                  onPressed: onTapToNewTask,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.add,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 16,
+                      ),
+                      Icon(Icons.calendar_month_sharp)
+                    ],
+                  ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    fixedSize: Size.fromWidth(150),
                   ),
                 ),
-                SizedBox(
-                  width: 16,
+              ),
+            )
+          : null,
+      body: _tabIndex == 0
+          ? SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  children: [
+                    FilterWidget(filterLabel: getFilterLabel),
+                    if (list["list"].length == 0)
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 200),
+                          child: Text("No Event"),
+                        ),
+                      ),
+                    if (ref
+                            .watch(eventNotifierProvider.notifier)
+                            .filteredEvents
+                            .length ==
+                        1)
+                      EventCardWidget(
+                        customerInfo: ref
+                            .watch(eventNotifierProvider.notifier)
+                            .filteredEvents
+                            .first,
+                      )
+                    else
+                      Swiper(
+                        itemCount: ref
+                            .watch(eventNotifierProvider.notifier)
+                            .filteredEvents
+                            .length,
+                        itemBuilder: (context, index) {
+                          return EventCardWidget(
+                            customerInfo: ref
+                                .watch(eventNotifierProvider.notifier)
+                                .filteredEvents[index],
+                          );
+                        },
+                        itemWidth: 350,
+                        itemHeight: 650,
+                        layout: SwiperLayout.STACK,
+                      ),
+                  ],
                 ),
-                Icon(Icons.calendar_month_sharp)
-              ],
-            ),
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.blueAccent,
-              foregroundColor: Theme.of(context).colorScheme.onPrimary,
-              fixedSize: Size.fromWidth(150),
-            ),
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            children: [
-              FilterWidget(filterLabel: getFilterLabel),
-              if (ref
-                      .watch(eventNotifierProvider.notifier)
-                      .filteredEvents
-                      .length ==
-                  1)
-                EventCardWidget(
-                  customerInfo: ref
-                      .watch(eventNotifierProvider.notifier)
-                      .filteredEvents
-                      .first,
-                )
-              else
-                Swiper(
-                  itemCount: ref
-                      .watch(eventNotifierProvider.notifier)
-                      .filteredEvents
-                      .length,
-                  itemBuilder: (context, index) {
-                    return EventCardWidget(
-                      customerInfo: ref
-                          .watch(eventNotifierProvider.notifier)
-                          .filteredEvents[index],
-                    );
-                  },
-                  itemWidth: 350,
-                  itemHeight: 650,
-                  layout: SwiperLayout.STACK,
-                ),
-            ],
-          ),
-        ),
-      ),
+              ),
+            )
+          : CalendarScreen(),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blueAccent,
         onTap: (value) {

@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rapport_manager/data/example.dart';
 import 'package:rapport_manager/models/event_detail_model.dart';
 
 class EventNotifier extends StateNotifier<Map<String, dynamic>> {
-  EventNotifier() : super({"list": examples, "filter": "All"});
+  EventNotifier() : super({"list": [], "filter": "All"});
 
   List<dynamic> get filteredEvents {
     if (state["filter"] == "Today's tasks") {
@@ -41,7 +40,10 @@ class EventNotifier extends StateNotifier<Map<String, dynamic>> {
       return;
     }
     newArr.add(event);
-    state = {"list": newArr, "filter": "All"};
+    state = {
+      "list": [...newArr],
+      "filter": "All"
+    };
   }
 
   void deleteEvent(EventDetail event) {
@@ -49,7 +51,10 @@ class EventNotifier extends StateNotifier<Map<String, dynamic>> {
 
     newArr.remove(event);
 
-    state = {"list": newArr, "filter": "All"};
+    state = {
+      "list": [...newArr],
+      "filter": "All"
+    };
   }
 
   void filterLabel(String filter) {

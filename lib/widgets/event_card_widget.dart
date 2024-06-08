@@ -129,6 +129,14 @@ class _ContactCardWidgetState extends ConsumerState<EventCardWidget> {
   }
 
   @override
+  void didUpdateWidget(covariant EventCardWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      _isOpenTextArea = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

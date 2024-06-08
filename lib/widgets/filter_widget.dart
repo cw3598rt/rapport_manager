@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rapport_manager/providers/event_provider.dart';
 
-class FilterWidget extends StatefulWidget {
+class FilterWidget extends ConsumerStatefulWidget {
   FilterWidget({super.key, required this.filterLabel});
 
   void Function(String filter) filterLabel;
 
   @override
-  State<FilterWidget> createState() {
+  ConsumerState<FilterWidget> createState() {
     return _FilterWidgetState();
   }
 }
 
-class _FilterWidgetState extends State<FilterWidget> {
+class _FilterWidgetState extends ConsumerState<FilterWidget> {
   String _clickedFilter = "All";
 
   void onTapFilters(String filter) {
@@ -43,7 +45,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     ),
               ),
               Text(
-                "12",
+                "${ref.watch(eventNotifierProvider)["list"].length}",
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                       color:
                           _clickedFilter == "All" ? Colors.white : Colors.black,
@@ -78,7 +80,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                       ),
                 ),
                 Text(
-                  "12",
+                  "${ref.watch(eventNotifierProvider)["list"].where((item) => item.date.day == DateTime.now().day).length}",
                   style: Theme.of(context).textTheme.labelSmall!.copyWith(
                         color: _clickedFilter == "Today's tasks"
                             ? Colors.white
@@ -115,7 +117,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                       ),
                 ),
                 Text(
-                  "12",
+                  "${ref.watch(eventNotifierProvider)["list"].where((item) => item.date.day != DateTime.now().day).length}",
                   style: Theme.of(context).textTheme.labelSmall!.copyWith(
                         color: _clickedFilter == "Weekly tasks"
                             ? Colors.white
