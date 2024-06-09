@@ -202,7 +202,7 @@ class _ContactCardWidgetState extends ConsumerState<EventCardWidget> {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      widget.customerInfo.event.name,
+                      widget.customerInfo.event,
                       style: Theme.of(context).textTheme.labelMedium!.copyWith(
                             fontSize: 24,
                             color: Theme.of(context).colorScheme.onPrimary,

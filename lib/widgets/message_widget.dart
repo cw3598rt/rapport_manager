@@ -28,7 +28,7 @@ class _MessageWidgetState extends State<MessageWidget> {
   }
 
   void generateMessage() async {
-    var event = widget.customerInfo.event.name;
+    var event = widget.customerInfo.event;
     var name = widget.customerInfo.name;
     var date = formatter.format(widget.customerInfo.date);
 

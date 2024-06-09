@@ -21,7 +21,7 @@ class NewEventScreen extends ConsumerStatefulWidget {
 
 class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
   late DateTime _pickedDate;
-  Events _pickedEvent = Events.values.first;
+  String _pickedEvent = events.length == 0 ? "" : events.first;
   List<Contact> _contacts = [];
   bool _permissionDenied = false;
   late SwiperController _controller;
@@ -151,23 +151,24 @@ class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
                         ),
                       ),
                     ),
-                    DropdownButton(
-                      value: _pickedEvent,
-                      items: [
-                        for (final event in Events.values)
-                          DropdownMenuItem(
-                            child: Text(event.name),
-                            value: event,
-                          )
-                      ],
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            _pickedEvent = value!;
-                          },
-                        );
-                      },
-                    ),
+                    if (events.length > 0)
+                      DropdownButton(
+                        value: _pickedEvent,
+                        items: [
+                          for (final event in events)
+                            DropdownMenuItem(
+                              child: Text(event),
+                              value: event,
+                            )
+                        ],
+                        onChanged: (value) {
+                          setState(
+                            () {
+                              _pickedEvent = value!;
+                            },
+                          );
+                        },
+                      ),
                   ],
                 ),
                 SizedBox(
@@ -196,7 +197,7 @@ class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
                       setState(() {
                         _controller.index = value;
                         _pickedDate = DateTime.now();
-                        _pickedEvent = Events.values.first;
+                        _pickedEvent = events.first;
                       });
                     },
                   ),

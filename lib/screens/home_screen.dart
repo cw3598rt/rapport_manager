@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rapport_manager/providers/event_provider.dart';
 import 'package:rapport_manager/screens/calendar_screen.dart';
 import 'package:rapport_manager/screens/newEvent_screen.dart';
+import 'package:rapport_manager/screens/setting_screen.dart';
 import 'package:rapport_manager/widgets/event_card_widget.dart';
 import 'package:rapport_manager/widgets/filter_widget.dart';
 
@@ -127,12 +128,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           : CalendarScreen(),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.grey,
         onTap: (value) {
           if (value == 2) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
                   return NewEventScreen();
+                },
+              ),
+            );
+          } else if (value == 3) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return SettingScreen();
                 },
               ),
             );
@@ -152,7 +162,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.note_add),
-            label: "NewTask",
+            label: "NewEvent",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: "Setting",
           )
         ],
       ),

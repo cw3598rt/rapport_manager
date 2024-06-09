@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 
 final formatter = DateFormat.Md();
 
-enum Events { birthDay, sayHello, recentlyPurchased, firstPurchased }
+var events = {"birthDay", "recentlyPurchased", "firstPurchased"};
 
 class EventDetail {
   EventDetail({
@@ -15,5 +15,5 @@ class EventDetail {
   String number;
   String name;
   DateTime date;
-  Events event;
+  String event;
 }

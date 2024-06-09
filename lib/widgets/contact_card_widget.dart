@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:rapport_manager/models/event_detail_model.dart';
 
 class ContactCardWidget extends StatefulWidget {
   ContactCardWidget({
@@ -12,7 +11,7 @@ class ContactCardWidget extends StatefulWidget {
 
   Contact contactInfo;
   String pickedDate;
-  Events pickedEvent;
+  String pickedEvent;
 
   @override
   State<ContactCardWidget> createState() => _ContactCardWidgetState();
