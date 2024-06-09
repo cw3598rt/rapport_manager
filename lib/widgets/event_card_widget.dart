@@ -188,7 +188,7 @@ class _ContactCardWidgetState extends ConsumerState<EventCardWidget> {
                       height: 50,
                       width: 60,
                       child: Text(
-                        formatter.format(widget.customerInfo.date),
+                        widget.customerInfo.date,
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!

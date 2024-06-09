@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rapport_manager/models/event_detail_model.dart';
 import 'package:rapport_manager/providers/event_provider.dart';
+import 'package:rapport_manager/widgets/banner_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {
@@ -137,6 +138,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               },
             ),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: BannerAdWidget(),
+          )
         ],
       ),
     );

@@ -80,7 +80,7 @@ class _FilterWidgetState extends ConsumerState<FilterWidget> {
                       ),
                 ),
                 Text(
-                  "${ref.watch(eventNotifierProvider)["list"].where((item) => item.date.day == DateTime.now().day).length}",
+                  "${ref.watch(eventNotifierProvider)["list"].where((item) => item.date.split("/")[1] == DateTime.now().day.toString()).length}",
                   style: Theme.of(context).textTheme.labelSmall!.copyWith(
                         color: _clickedFilter == "Today's tasks"
                             ? Colors.white
@@ -117,7 +117,7 @@ class _FilterWidgetState extends ConsumerState<FilterWidget> {
                       ),
                 ),
                 Text(
-                  "${ref.watch(eventNotifierProvider)["list"].where((item) => item.date.day != DateTime.now().day).length}",
+                  "${ref.watch(eventNotifierProvider)["list"].where((item) => item.date.split("/")[1] != DateTime.now().day.toString()).length}",
                   style: Theme.of(context).textTheme.labelSmall!.copyWith(
                         color: _clickedFilter == "Weekly tasks"
                             ? Colors.white

@@ -5,6 +5,7 @@ import 'package:rapport_manager/providers/event_provider.dart';
 import 'package:rapport_manager/screens/calendar_screen.dart';
 import 'package:rapport_manager/screens/newEvent_screen.dart';
 import 'package:rapport_manager/screens/setting_screen.dart';
+import 'package:rapport_manager/widgets/banner_widget.dart';
 import 'package:rapport_manager/widgets/event_card_widget.dart';
 import 'package:rapport_manager/widgets/filter_widget.dart';
 
@@ -17,6 +18,13 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _tabIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.read(eventNotifierProvider.notifier).loadEvents();
+  }
 
   void onTapTabBar(int tabIndex) {
     setState(() {
@@ -89,7 +97,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     if (list["list"].length == 0)
                       Center(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 200),
+                          padding: const EdgeInsets.only(top: 200, bottom: 400),
                           child: Text("No Event"),
                         ),
                       ),
@@ -98,11 +106,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             .filteredEvents
                             .length ==
                         1)
-                      EventCardWidget(
-                        customerInfo: ref
-                            .watch(eventNotifierProvider.notifier)
-                            .filteredEvents
-                            .first,
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 300),
+                        child: EventCardWidget(
+                          customerInfo: ref
+                              .watch(eventNotifierProvider.notifier)
+                              .filteredEvents
+                              .first,
+                        ),
                       )
                     else
                       Swiper(
@@ -121,6 +132,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         itemHeight: 650,
                         layout: SwiperLayout.STACK,
                       ),
+                    Align(
+                        alignment: Alignment.bottomCenter,
+                        child: BannerAdWidget())
                   ],
                 ),
               ),
@@ -173,3 +187,4 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 }
+//  BannerAdWidget()

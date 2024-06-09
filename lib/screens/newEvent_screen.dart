@@ -7,6 +7,9 @@ import 'package:rapport_manager/screens/home_screen.dart';
 import 'package:rapport_manager/widgets/contact_card_widget.dart';
 import 'package:rapport_manager/widgets/new_contact_button_widget.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = Uuid();
 
 class NewEventScreen extends ConsumerStatefulWidget {
   NewEventScreen({super.key, this.pickedDate});
@@ -20,7 +23,7 @@ class NewEventScreen extends ConsumerStatefulWidget {
 }
 
 class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
-  late DateTime _pickedDate;
+  late String _pickedDate;
   String _pickedEvent = events.length == 0 ? "" : events.first;
   List<Contact> _contacts = [];
   bool _permissionDenied = false;
@@ -44,7 +47,7 @@ class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
     );
     if (pickedDate != null) {
       setState(() {
-        _pickedDate = pickedDate;
+        _pickedDate = formatter.format(pickedDate);
       });
     }
   }
@@ -57,8 +60,9 @@ class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
   @override
   void initState() {
     super.initState();
-    _pickedDate =
-        widget.pickedDate != null ? widget.pickedDate! : DateTime.now();
+    _pickedDate = widget.pickedDate != null
+        ? formatter.format(widget.pickedDate!)
+        : formatter.format(DateTime.now());
     _fetchContacts();
     _controller = SwiperController();
   }
@@ -73,6 +77,7 @@ class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
     final currentContactInfo = _contacts[_controller.index];
     final fullContact = await FlutterContacts.getContact(currentContactInfo.id);
     final newEvent = EventDetail(
+      id: uuid.v4(),
       number: fullContact!.phones.first.number,
       name: currentContactInfo.displayName,
       date: _pickedDate,
@@ -140,7 +145,7 @@ class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
                           children: [
                             Text(widget.pickedDate != null
                                 ? formatter.format(widget.pickedDate!)
-                                : formatter.format(_pickedDate)),
+                                : _pickedDate),
                             CircleAvatar(
                               backgroundColor: Colors.white,
                               child: Icon(
@@ -184,7 +189,7 @@ class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
                     itemBuilder: (context, index) {
                       return ContactCardWidget(
                         contactInfo: _contacts[index],
-                        pickedDate: formatter.format(_pickedDate),
+                        pickedDate: _pickedDate,
                         pickedEvent: _pickedEvent,
                       );
                     },
@@ -196,7 +201,7 @@ class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
                       widget.pickedDate = null;
                       setState(() {
                         _controller.index = value;
-                        _pickedDate = DateTime.now();
+                        _pickedDate = formatter.format(DateTime.now());
                         _pickedEvent = events.first;
                       });
                     },

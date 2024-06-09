@@ -30,7 +30,7 @@ class _MessageWidgetState extends State<MessageWidget> {
   void generateMessage() async {
     var event = widget.customerInfo.event;
     var name = widget.customerInfo.name;
-    var date = formatter.format(widget.customerInfo.date);
+    var date = widget.customerInfo.date;
 
     var prompt =
         "first of all, you have amazing customer service skill. Could you write professional text message for the customer? customer's name is $name and text message's main content is about $event at $date. please write it politely but friendly as well. and do not put any link or phone number or any unnecessary information just focus on given information only. Additionally, if given name is not english letters please translate the whole message as given name language! and also put some emoji too";
