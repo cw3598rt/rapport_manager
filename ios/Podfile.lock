@@ -1,0 +1,88 @@
+PODS:
+  - FBAEMKit (14.0.0):
+    - FBSDKCoreKit_Basics (= 14.0.0)
+  - FBSDKCoreKit (14.0.0):
+    - FBAEMKit (= 14.0.0)
+    - FBSDKCoreKit_Basics (= 14.0.0)
+  - FBSDKCoreKit_Basics (14.0.0)
+  - FBSDKLoginKit (14.0.0):
+    - FBSDKCoreKit (= 14.0.0)
+  - FBSDKShareKit (14.0.0):
+    - FBSDKCoreKit (= 14.0.0)
+  - Flutter (1.0.0)
+  - flutter_contacts (0.0.1):
+    - Flutter
+  - flutter_native_splash (0.0.1):
+    - Flutter
+  - flutter_share_me (0.0.1):
+    - FBSDKCoreKit (~> 14.0.0)
+    - FBSDKLoginKit (~> 14.0.0)
+    - FBSDKShareKit (~> 14.0.0)
+    - Flutter
+  - Google-Mobile-Ads-SDK (11.2.0):
+    - GoogleUserMessagingPlatform (>= 1.1)
+  - google_mobile_ads (5.1.0):
+    - Flutter
+    - Google-Mobile-Ads-SDK (~> 11.2.0)
+    - webview_flutter_wkwebview
+  - GoogleUserMessagingPlatform (2.4.0)
+  - sqflite (0.0.3):
+    - Flutter
+    - FlutterMacOS
+  - webview_flutter_wkwebview (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_contacts (from `.symlinks/plugins/flutter_contacts/ios`)
+  - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
+  - flutter_share_me (from `.symlinks/plugins/flutter_share_me/ios`)
+  - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/darwin`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
+
+SPEC REPOS:
+  trunk:
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
+    - FBSDKShareKit
+    - Google-Mobile-Ads-SDK
+    - GoogleUserMessagingPlatform
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_contacts:
+    :path: ".symlinks/plugins/flutter_contacts/ios"
+  flutter_native_splash:
+    :path: ".symlinks/plugins/flutter_native_splash/ios"
+  flutter_share_me:
+    :path: ".symlinks/plugins/flutter_share_me/ios"
+  google_mobile_ads:
+    :path: ".symlinks/plugins/google_mobile_ads/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/darwin"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
+
+SPEC CHECKSUMS:
+  FBAEMKit: d00064597439e75885c70d9adbcb5f3e9ad84f5d
+  FBSDKCoreKit: e5d3acfffe5063a9d0b967ba2ad1f5afc460cf43
+  FBSDKCoreKit_Basics: 1ff46a12e80f0b66e6c00e1ef32d6a5b5b9008a5
+  FBSDKLoginKit: dbe86ef42ab142f3bd0f1c904a21bb33f31c5569
+  FBSDKShareKit: 2f6a6a1445cc1b8ea0f733e60d02d2f7c4ebf8be
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_contacts: edb1c5ce76aa433e20e6cb14c615f4c0b66e0983
+  flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
+  flutter_share_me: 1fb559741e0dff56a9d2bdeaf4d966b0b47449ae
+  Google-Mobile-Ads-SDK: 5a6d005a6cb5b5e8f4c7b69ca05cdea79c181139
+  google_mobile_ads: 9379c80fdfa9988fb0e105a407890ff8deb3cf86
+  GoogleUserMessagingPlatform: f131fa7978d2ba88d7426702b057c2cc318e6595
+  sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
+  webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
+
+PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+
+COCOAPODS: 1.15.2

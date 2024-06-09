@@ -130,97 +130,99 @@ class _NewTaskScreenState extends ConsumerState<NewEventScreen> {
         title: Text("New Event"),
       ),
       body: !_permissionDenied
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: onTapPickDate,
-                      child: SizedBox(
-                        width: 150,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(widget.pickedDate != null
-                                ? formatter.format(widget.pickedDate!)
-                                : _pickedDate),
-                            CircleAvatar(
-                              backgroundColor: Colors.white,
-                              child: Icon(
-                                Icons.calendar_month_sharp,
+          ? SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                        onTap: onTapPickDate,
+                        child: SizedBox(
+                          width: 150,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(widget.pickedDate != null
+                                  ? formatter.format(widget.pickedDate!)
+                                  : _pickedDate),
+                              CircleAvatar(
+                                backgroundColor: Colors.white,
+                                child: Icon(
+                                  Icons.calendar_month_sharp,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
+                      if (events.length > 0)
+                        DropdownButton(
+                          value: _pickedEvent,
+                          items: [
+                            for (final event in events)
+                              DropdownMenuItem(
+                                child: Text(event),
+                                value: event,
+                              )
+                          ],
+                          onChanged: (value) {
+                            setState(
+                              () {
+                                _pickedEvent = value!;
+                              },
+                            );
+                          },
+                        ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  if (_contacts.length == 0)
+                    Center(
+                      child: Text('No Contacts'),
+                    )
+                  else if (_contacts.length > 0)
+                    Swiper(
+                      itemCount: _contacts.length,
+                      itemBuilder: (context, index) {
+                        return ContactCardWidget(
+                          contactInfo: _contacts[index],
+                          pickedDate: _pickedDate,
+                          pickedEvent: _pickedEvent,
+                        );
+                      },
+                      itemWidth: 350,
+                      itemHeight: 350,
+                      layout: SwiperLayout.STACK,
+                      controller: _controller,
+                      onIndexChanged: (value) {
+                        widget.pickedDate = null;
+                        setState(() {
+                          _controller.index = value;
+                          _pickedDate = formatter.format(DateTime.now());
+                          _pickedEvent = events.first;
+                        });
+                      },
                     ),
-                    if (events.length > 0)
-                      DropdownButton(
-                        value: _pickedEvent,
-                        items: [
-                          for (final event in events)
-                            DropdownMenuItem(
-                              child: Text(event),
-                              value: event,
-                            )
-                        ],
-                        onChanged: (value) {
-                          setState(
-                            () {
-                              _pickedEvent = value!;
-                            },
-                          );
-                        },
-                      ),
-                  ],
-                ),
-                SizedBox(
-                  height: 24,
-                ),
-                if (_contacts.length == 0)
-                  Center(
-                    child: Text('No Contacts'),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  NewContactButtonWidget(addContact: onTapAddContact),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: onTapCreateNewEvent,
+                      child: Text("Create NewEvent"),
+                    ),
                   )
-                else if (_contacts.length > 0)
-                  Swiper(
-                    itemCount: _contacts.length,
-                    itemBuilder: (context, index) {
-                      return ContactCardWidget(
-                        contactInfo: _contacts[index],
-                        pickedDate: _pickedDate,
-                        pickedEvent: _pickedEvent,
-                      );
-                    },
-                    itemWidth: 350,
-                    itemHeight: 350,
-                    layout: SwiperLayout.STACK,
-                    controller: _controller,
-                    onIndexChanged: (value) {
-                      widget.pickedDate = null;
-                      setState(() {
-                        _controller.index = value;
-                        _pickedDate = formatter.format(DateTime.now());
-                        _pickedEvent = events.first;
-                      });
-                    },
-                  ),
-                SizedBox(
-                  height: 24,
-                ),
-                NewContactButtonWidget(addContact: onTapAddContact),
-                SizedBox(
-                  height: 24,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: onTapCreateNewEvent,
-                    child: Text("Create NewEvent"),
-                  ),
-                )
-              ],
+                ],
+              ),
             )
           : Center(
               child: Text('Permission denied'),

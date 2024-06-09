@@ -45,12 +45,20 @@
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
+		<key>CFBundleURLTypes</key>
 		<array>
-			<string>whatsapp</string>
+			<dict>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>whatsapp</string>
+				</array>
+			</dict>
 		</array>
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>GADApplicationIdentifier</key>
 		<string>ca-app-pub-8697995901623283~8965605048</string>
+		<key>NSContactsUsageDescription</key>
+    	<string>Reason we need access to the contact list</string>
 	</dict>
 </plist>

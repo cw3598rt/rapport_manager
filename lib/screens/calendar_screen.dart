@@ -33,8 +33,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
     List<dynamic> list = ref.watch(eventNotifierProvider)["list"];
 
-    List<dynamic> filteredList =
-        list.where((item) => item.date.day == day.day).toList();
+    List<dynamic> filteredList = list
+        .where((item) => item.date.split("/")[1] == day.toString())
+        .toList();
 
     return filteredList;
   }
