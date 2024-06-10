@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class BannerAdWidget extends StatefulWidget {
@@ -13,14 +14,14 @@ class BannerAdWidget extends StatefulWidget {
 }
 
 class _BannerAdWidgetState extends State<BannerAdWidget> {
-  late final BannerAd banner;
+  BannerAd? banner;
 
-  @override
-  void initState() {
-    super.initState();
+  void setAdMob() async {
+    await dotenv.load(fileName: ".env");
+
     final adUnitId = Platform.isIOS
-        ? "ca-app-pub-3940256099942544/2934735716"
-        : "ca-app-pub-3940256099942544/6300978111";
+        ? dotenv.env['IOSUNITID'].toString()
+        : dotenv.env['ANDROIDUNITID'].toString();
 
     banner = BannerAd(
       size: AdSize.banner,
@@ -31,21 +32,32 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
       request: AdRequest(),
     );
 
-    banner.load();
+    banner!.load();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setAdMob();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    banner.dispose();
+    banner!.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 75,
-      child: AdWidget(ad: banner),
+    if (banner != null) {
+      return SizedBox(
+        height: 75,
+        child: AdWidget(ad: banner!),
+      );
+    }
+    return Center(
+      child: Text(""),
     );
   }
 }
