@@ -25,45 +25,48 @@ class _FilterWidgetState extends ConsumerState<FilterWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        TextButton(
-          onPressed: () {
-            onTapFilters("All");
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                "All",
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color:
-                          _clickedFilter == "All" ? Colors.white : Colors.black,
-                      fontSize: 16,
-                    ),
-              ),
-              Text(
-                "${ref.watch(eventNotifierProvider)["list"].length}",
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                      color:
-                          _clickedFilter == "All" ? Colors.white : Colors.black,
-                      fontSize: 14,
-                    ),
-              ),
-            ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+              onTapFilters("All");
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "All",
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        color: _clickedFilter == "All"
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 16,
+                      ),
+                ),
+                Text(
+                  "${ref.watch(eventNotifierProvider)["list"].length}",
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                        color: _clickedFilter == "All"
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                      ),
+                ),
+              ],
+            ),
+            style: TextButton.styleFrom(
+              fixedSize: Size(120, 50),
+              overlayColor: Colors.blueAccent,
+              backgroundColor: _clickedFilter == "All"
+                  ? Colors.blueAccent
+                  : Color.fromARGB(255, 205, 223, 255),
+            ),
           ),
-          style: TextButton.styleFrom(
-            fixedSize: Size(120, 50),
-            overlayColor: Colors.blueAccent,
-            backgroundColor: _clickedFilter == "All"
-                ? Colors.blueAccent
-                : Color.fromARGB(255, 205, 223, 255),
-          ),
-        ),
-        Expanded(
-          child: TextButton(
+          TextButton(
             onPressed: () {
               onTapFilters("Today's tasks");
             },
@@ -78,6 +81,9 @@ class _FilterWidgetState extends ConsumerState<FilterWidget> {
                             : Colors.black,
                         fontSize: 16,
                       ),
+                ),
+                SizedBox(
+                  width: 24,
                 ),
                 Text(
                   "${ref.watch(eventNotifierProvider)["list"].where((item) => item.date.split("/")[1] == DateTime.now().day.toString()).length}",
@@ -98,9 +104,7 @@ class _FilterWidgetState extends ConsumerState<FilterWidget> {
                   : Color.fromARGB(255, 205, 223, 255),
             ),
           ),
-        ),
-        Expanded(
-          child: TextButton(
+          TextButton(
             onPressed: () {
               onTapFilters("Weekly tasks");
             },
@@ -115,6 +119,9 @@ class _FilterWidgetState extends ConsumerState<FilterWidget> {
                             : Colors.black,
                         fontSize: 16,
                       ),
+                ),
+                SizedBox(
+                  width: 24,
                 ),
                 Text(
                   "${ref.watch(eventNotifierProvider)["list"].where((item) => item.date.split("/")[1] != DateTime.now().day.toString()).length}",
@@ -135,8 +142,8 @@ class _FilterWidgetState extends ConsumerState<FilterWidget> {
                   : Color.fromARGB(255, 205, 223, 255),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
